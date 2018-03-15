@@ -96,7 +96,7 @@ namespace ProgettoPDS
                         {
                             //Aggiungo l'ip alla lista
                             ipList.Add(localIP);
-                            listBox1.Items.Add(localIP);
+                            //listBox1.Items.Add(localIP);
                             
                             imgs = new ImageList();
                             imgs.ImageSize = new Size(50, 50);
@@ -105,7 +105,6 @@ namespace ProgettoPDS
 
                             listView1.SmallImageList = imgs;
                             listView1.Items.Add(localIP, UserName, localIP);
-                            
                         }
                     }
                     else
@@ -115,10 +114,8 @@ namespace ProgettoPDS
                             indexImage = imgs.Images.IndexOfKey(localIP);
                             imgs.Images.RemoveAt(indexImage);
                             listView1.Items.RemoveByKey(localIP);
-                            listBox1.Items.Remove(localIP);
+                            //listBox1.Items.Remove(localIP);
                             ipList.Remove(localIP);
-                            //imgs.Images.RemoveByKey(localIP);
-                            //listView1.Items.RemoveByKey(localIP);
                         }
                     }
                 });
