@@ -8,3 +8,13 @@ C:\Users\chiar\Documents\Visual Studio 2017\Projects\ProgettoPDS\ProgettoPDS\obj
 C:\Users\chiar\Documents\Visual Studio 2017\Projects\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.pdb
 C:\Users\chiar\Documents\Visual Studio 2017\Projects\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.FileSharing.resources
 C:\Users\chiar\Documents\Visual Studio 2017\Projects\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.csprojResolveAssemblyReference.cache
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\bin\Debug\ProgettoPDS.exe.config
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\bin\Debug\ProgettoPDS.exe
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\bin\Debug\ProgettoPDS.pdb
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.csprojResolveAssemblyReference.cache
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.FileSharing.resources
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.Properties.Resources.resources
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.csproj.GenerateResource.cache
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.csproj.CoreCompileInputs.cache
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.exe
+C:\Users\chiar\source\repos\ProgettoPDS\ProgettoPDS\obj\Debug\ProgettoPDS.pdb
