@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
+using System.Net.NetworkInformation;
 
 namespace ProgettoPDS
 {
@@ -24,6 +25,7 @@ namespace ProgettoPDS
         string sendlocalIP = "";
         string myUserName = "";
         int indexImage;
+        //ToolStripStatusLabel textLabel = new ToolStripStatusLabel("Riconnessione in corso...");
 
         ImageList imgs;
         // Creare e istanziare una nuova ArrayList per memorizzare gli indirizzi ip disponibili
@@ -32,10 +34,12 @@ namespace ProgettoPDS
 
         Bitmap img1 = Properties.Resources.redButton;
         Bitmap img2 = Properties.Resources.greenButton;
+        UdpClient sender;
+        String label = "";
 
         public void SendMulticast()
         {
-            UdpClient sender = new UdpClient();
+            sender = new UdpClient();
             IPAddress multicastIp = IPAddress.Parse("224.5.6.7");
             sender.JoinMulticastGroup(multicastIp);
             IPEndPoint remoteIp = new IPEndPoint(multicastIp, 1500);
@@ -51,13 +55,24 @@ namespace ProgettoPDS
                     sendlocalIP = ipLocal.ToString();
             }
 
-            while ((label1.Text).Equals("ONLINE") && !sendWorker.CancellationPending)
+            Invoke((MethodInvoker)delegate {
+                label = label1.Text.ToString();
+            });
+
+
+            //while ((label1.Text).Equals("ONLINE") && !sendWorker.CancellationPending)
+            if((label).Equals("ONLINE"))
             {
-                buffer = Encoding.Unicode.GetBytes(label1.Text + "," + sendlocalIP + "," + myUserName);
+                buffer = Encoding.Unicode.GetBytes(label + "," + sendlocalIP + "," + myUserName);
                 sender.Send(buffer, buffer.Length, remoteIp);
             }
-            buffer = Encoding.Unicode.GetBytes(label1.Text + "," + sendlocalIP + "," + myUserName);
-            sender.Send(buffer, buffer.Length, remoteIp);
+
+            if ((label).Equals("OFFLINE"))
+            {
+                buffer = Encoding.Unicode.GetBytes(label + "," + sendlocalIP + "," + myUserName);
+                sender.Send(buffer, buffer.Length, remoteIp);
+            }
+                
         }
 
         public void RecvMulticast()
@@ -87,12 +102,20 @@ namespace ProgettoPDS
                 string localIP = message[1];
                 string UserName = message[2];
 
-                Invoke((MethodInvoker)delegate
+                
+                if (status.Equals("ONLINE"))
                 {
-                    if (status.Equals("ONLINE"))
+                    //Cerco nella lista di IP se si è già ricevuto un messaggio
+                    if (!ipList.Contains(localIP) && !myUserName.Equals(UserName))
                     {
-                        //Cerco nella lista di IP se si è già ricevuto un messaggio
-                        if (!ipList.Contains(localIP) && !myUserName.Equals(UserName))
+                        /*  string serverIP = "192.168.0.1";
+                            string port = 8000;
+                            IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse(serverIP), port);*/
+                        buffer = Encoding.Unicode.GetBytes(label1.Text + "," + sendlocalIP + "," + myUserName);
+                        IPEndPoint remoteEP = new IPEndPoint(IPAddress.Parse(localIP), 1500);
+                        sender.Send(buffer, buffer.Length, remoteEP);
+
+                        Invoke((MethodInvoker)delegate
                         {
                             //Aggiungo l'ip alla lista
                             ipList.Add(localIP);
@@ -105,26 +128,31 @@ namespace ProgettoPDS
 
                             listView1.SmallImageList = imgs;
                             listView1.Items.Add(localIP, UserName, localIP);
-                        }
+
+                        });
                     }
-                    else
+                }
+                else
+                {
+                    if (ipList.Contains(localIP))
                     {
-                        if (ipList.Contains(localIP))
+                        Invoke((MethodInvoker)delegate
                         {
                             indexImage = imgs.Images.IndexOfKey(localIP);
                             imgs.Images.RemoveAt(indexImage);
                             listView1.Items.RemoveByKey(localIP);
                             //listBox1.Items.Remove(localIP);
                             ipList.Remove(localIP);
-                        }
+                        });
                     }
-                });
+                }
             }
         }
         
         public FileSharing()
         {
             InitializeComponent();
+            listView1.MouseDoubleClick += new MouseEventHandler(listView1_MouseDoubleClick);
             pictureBox1.Image = img2; //assign image1 to picturebox here
 
             InitializeBackgroundWorker();
@@ -133,6 +161,12 @@ namespace ProgettoPDS
 
             recvWorker.WorkerReportsProgress = true;
             recvWorker.WorkerSupportsCancellation = true;
+
+            /*Thread connectivityThread = new Thread(() => { while (true) { checkConnectivity(); Thread.Sleep(1000); } });
+            //Quando si chiude l'applicazione, faccio in modo di killare automaticamente quei thread ù
+            //che hanno la proprietà IsBackgroud settata a 'true'
+            connectivityThread.IsBackground = true;
+            connectivityThread.Start();*/
         }
 
         // Set up the BackgroundWorker object by attaching event handlers. 
@@ -235,6 +269,19 @@ namespace ProgettoPDS
             }
         }
 
+        /*private void checkConnectivity()
+        {
+            bool Connection = NetworkInterface.GetIsNetworkAvailable();
+            if (!Connection)
+            {
+                //loss of connection
+                MessageBox.Show("No Connection");
+                if(!statusStrip1.Items.Contains(textLabel))
+                    statusStrip1.Items.Add(textLabel);
+            }
+            else
+                statusStrip1.Items.Remove(textLabel);
+        }*/
 
         private void ricercaDispositiviToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
@@ -243,6 +290,14 @@ namespace ProgettoPDS
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+        }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            //Evento: Doppio click su un utente presente nella listView
+            MessageBox.Show("Utente selezionato");  //per il momento un messageBox, dopo modificare con il form invio file
+
 
         }
     }

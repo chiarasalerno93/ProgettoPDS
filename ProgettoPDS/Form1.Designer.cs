@@ -1,4 +1,6 @@
-﻿namespace ProgettoPDS
+﻿using System.Windows.Forms;
+
+namespace ProgettoPDS
 {
     partial class FileSharing
     {
@@ -42,6 +44,7 @@
             this.informazioniSuFileSharingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -51,7 +54,7 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pictureBox1.Image = global::ProgettoPDS.Properties.Resources.greenButton;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 410);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 393);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(30, 30);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -63,7 +66,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 430);
+            this.label1.Location = new System.Drawing.Point(48, 410);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 3;
@@ -169,6 +172,14 @@
             this.pictureBox2.TabIndex = 8;
             this.pictureBox2.TabStop = false;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 430);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(484, 22);
+            this.statusStrip1.TabIndex = 9;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
             // FileSharing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -178,6 +189,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(484, 452);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.label1);
@@ -213,6 +225,7 @@
         private System.Windows.Forms.ToolStripMenuItem informazioniSuFileSharingToolStripMenuItem1;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }
 
